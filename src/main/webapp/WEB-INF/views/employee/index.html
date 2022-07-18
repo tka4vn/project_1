@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Сотрудники</title>
+</head>
+<body>
+
+<div th:each="employee : ${employeeList}">
+    <a th:href="@{/employee/{id}(id=${employee.getId()})}"
+       th:text="${employee.getFullName()}">user</a>
+</div>
+
+<br/>
+<hr/>
+
+<a href="/employee/new">Добавить сотрудника</a>
+<br/>
+<a href="/">На главную</a>
+
+</body>
+</html>

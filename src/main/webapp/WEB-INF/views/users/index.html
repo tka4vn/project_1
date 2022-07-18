@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Index</title>
+</head>
+<body>
+
+<style>
+    table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;}
+    th, td {
+        padding: 10px;}
+    table {
+        width:50%;
+        background-color: #f1f1c1;}
+</style>
+
+<table>
+    <tr>
+        <th><a href="/employee">Сотрудник</a></th>
+        <th colspan="3">Акаунт</th>
+    </tr>
+    <tr th:each="users : ${users}">
+        <td align="center">
+            <span th:if="${users.getIdEmpUse}" th:text="${users.getIdEmpUse.getFullName()}"></span>
+            <span th:unless="${users.getIdEmpUse}">-</span>
+        </td>
+        <td align="center" th:text="${users.getName()}"></td>
+        <td align="center">
+            <form th:method="GET" th:action="@{/users/{id}/edit(id=${users.getId()})}">
+                <input type="submit" value="Редактировать"/>
+            </form>
+        </td>
+        <td align="center">
+            <form th:method="DELETE" th:action="@{/users/{id}(id=${users.getId()})}">
+                <input type="submit" value="Удалить"/>
+            </form>
+        </td>
+    </tr>
+</table>
+<br>
+<a href="/users/new"><input type="submit" value="Создать акаунт"/></a>
+
+
+<br/>
+<hr/>
+
+<br/>
+<a href="/">На главную</a>
+
+</body>
+</html>

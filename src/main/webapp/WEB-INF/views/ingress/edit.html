@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Обновить доступ</title>
+</head>
+<body>
+
+<style>
+    table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;}
+    th, td {
+        padding: 10px;}
+    table {
+        width:50%;
+        background-color: #f1f1c1;}
+</style>
+
+    <table>
+<!--INGRESS-->
+        <tr>
+            <form th:method="PATCH" th:action="@{/ingress/{id}(id=${ingress.getId()})}" th:object="${ingress}">
+            <td>Доступ</td>
+            <td>
+                <input type="text" th:field="*{dateIng}" id="dateIng"/>
+                <div style="color:red" th:if="${#fields.hasErrors('dateIng')}" th:errors="*{dateIng}">Error</div>
+                </td>
+            <td><input type="submit" value="Изменить"/></td>
+            </form>
+        </tr>
+<!--ROLE-->
+        <tr th:if="${idRolIng}">
+            <td>Сотрудник</td>
+            <td th:text="${idRolIng.getName()}"></td>
+            <td><form th:method="PATCH" th:action="@{/ingress/{id}/releaseRole(id=${ingress.getId()})}">
+                <input type="submit" value="Изменить"/>
+            </form>
+            </td>
+        </tr>
+        <tr th:if="${roleList}">
+            <form th:method="PATCH" th:action="@{/ingress/{id}/assignRole(id=${ingress.getId()})}">
+                <td>
+                    Сотрудник
+                </td>
+                <td>
+                    <select th:object="${role}" th:field="*{id}" id="role">
+                        <option th:each="role : ${roleList}" th:value="${role.getId()}" th:text="${role.getName()}"></option>
+                    </select>
+                </td>
+                <td>
+                    <input type="submit" value="Сохранить"/>
+                </td>
+            </form>
+        </tr>
+<!--SERVICES-->
+        <tr th:if="${idSerIng}">
+            <td>Должность</td>
+            <td th:text="${idSerIng.getName()}"></td>
+            <td><form th:method="PATCH" th:action="@{/ingress/{id}/releaseServices(id=${ingress.getId()})}">
+                <input type="submit" value="Изменить"/>
+            </form>
+            </td>
+        </tr>
+        <tr th:if="${servicesList}">
+            <form th:method="PATCH" th:action="@{/ingress/{id}/assignServices(id=${ingress.getId()})}">
+                <td>
+                    Должность
+                </td>
+                <td>
+                    <select th:object="${services}" th:field="*{id}" id="services">
+                        <option th:each="services : ${servicesList}" th:value="${services.getId()}" th:text="${services.getName()}"></option>
+                    </select>
+                </td>
+                <td>
+                    <input type="submit" value="Сохранить"/>
+                </td>
+            </form>
+        </tr>
+<!--USERS-->
+        <tr th:if="${idUseIng}">
+            <td>Департамент</td>
+            <td th:text="${idUseIng.getName()}"></td>
+            <td><form th:method="PATCH" th:action="@{/ingress/{id}/releaseUsers(id=${ingress.getId()})}">
+                    <input type="submit" value="Изменить"/>
+                </form>
+                </td>
+        </tr>
+        <tr th:if="${usersList}">
+            <form th:method="PATCH" th:action="@{/ingress/{id}/assignUsers(id=${ingress.getId()})}">
+                <td>
+                    Департамент
+                </td>
+                <td>
+                    <select th:object="${users}" th:field="*{id}" id="users">
+                        <option th:each="users : ${usersList}" th:value="${users.getId()}" th:text="${users.getName()}"></option>
+                    </select>
+                </td>
+                <td>
+                    <input type="submit" value="Сохранить"/>
+                </td>
+            </form>
+        </tr>
+    </table>
+<br>
+<a href="/ingress"><input type="submit" value="Ok"/></a>
+<hr/>
+
+</body>
+</html>

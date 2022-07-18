@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Index</title>
+</head>
+<body>
+
+<div th:each="status : ${statusList}">
+    <a th:href="@{/status/{id}(id=${status.getId()})}"
+       th:text="${status.getName()}">user</a>
+</div>
+
+<br/>
+<hr/>
+
+<a href="/status/new">Добавить статус</a>
+<br/>
+<a href="/">На главную</a>
+
+</body>
+</html>

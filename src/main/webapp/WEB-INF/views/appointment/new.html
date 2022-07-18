@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>New appointment</title>
+</head>
+<body>
+
+<style>
+    table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;}
+    th, td {
+        padding: 10px;}
+    table {
+        width:50%;
+        background-color: #f1f1c1;}
+</style>
+
+<table>
+    <!--APPOINTMENT-->
+    <tr>
+        <form th:method="POST" th:action="@{/appointment/}" th:object="${appointment}">
+            <td>Дата назначения</td>
+            <td>
+                <input type="text" th:field="*{dateApp}" id="dateApp"/>
+                <div style="color:red" th:if="${#fields.hasErrors('dateApp')}" th:errors="*{dateApp}">Error</div>
+            </td>
+            <td><input type="submit" value="Создать"/></td>
+        </form>
+    </tr>
+</table>
+<br>
+<a href="/appointment"><input type="submit" value="Назад"/></a>
+<hr/>
+
+</body>
+</html>

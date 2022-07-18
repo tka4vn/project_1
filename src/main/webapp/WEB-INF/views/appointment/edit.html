@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Редактировать</title>
+</head>
+<body>
+
+<style>
+    table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;}
+    th, td {
+        padding: 10px;}
+    table {
+        width:50%;
+        background-color: #f1f1c1;}
+</style>
+
+    <table>
+<!--APPOINTMENT-->
+        <tr>
+            <form th:method="PATCH" th:action="@{/appointment/{id}(id=${appointment.getId()})}" th:object="${appointment}">
+            <td>Назначение</td>
+            <td>
+                <input type="text" th:field="*{dateApp}" id="dateApp"/>
+                <div style="color:red" th:if="${#fields.hasErrors('dateApp')}" th:errors="*{dateApp}">Error</div>
+                </td>
+            <td><input type="submit" value="Изменить"/></td>
+            </form>
+        </tr>
+<!--EMPLOYEE-->
+        <tr th:if="${idEmpApp}">
+            <td>Сотрудник</td>
+            <td th:text="${idEmpApp.getFullName()}"></td>
+            <td><form th:method="PATCH" th:action="@{/appointment/{id}/releaseEmployee(id=${appointment.getId()})}">
+                <input type="submit" value="Изменить"/>
+            </form>
+            </td>
+        </tr>
+        <tr th:if="${employeeList}">
+            <form th:method="PATCH" th:action="@{/appointment/{id}/assignEmployee(id=${appointment.getId()})}">
+                <td>
+                    Сотрудник
+                </td>
+                <td>
+                    <select th:object="${employee}" th:field="*{id}" id="employee">
+                        <option th:each="employee : ${employeeList}" th:value="${employee.getId()}" th:text="${employee.getFullName()}"></option>
+                    </select>
+                </td>
+                <td>
+                    <input type="submit" value="Сохранить"/>
+                </td>
+            </form>
+        </tr>
+<!--POSITION-->
+        <tr th:if="${idPosApp}">
+            <td>Должность</td>
+            <td th:text="${idPosApp.getName()}"></td>
+            <td><form th:method="PATCH" th:action="@{/appointment/{id}/releasePosition(id=${appointment.getId()})}">
+                <input type="submit" value="Изменить"/>
+            </form>
+            </td>
+        </tr>
+        <tr th:if="${positionList}">
+            <form th:method="PATCH" th:action="@{/appointment/{id}/assignPosition(id=${appointment.getId()})}">
+                <td>
+                    Должность
+                </td>
+                <td>
+                    <select th:object="${position}" th:field="*{id}" id="position">
+                        <option th:each="position : ${positionList}" th:value="${position.getId()}" th:text="${position.getName()}"></option>
+                    </select>
+                </td>
+                <td>
+                    <input type="submit" value="Сохранить"/>
+                </td>
+            </form>
+        </tr>
+<!--DEPORTMENT-->
+        <tr th:if="${idDepApp}">
+            <td>Департамент</td>
+            <td th:text="${idDepApp.getName()}"></td>
+            <td><form th:method="PATCH" th:action="@{/appointment/{id}/releaseDepartment(id=${appointment.getId()})}">
+                    <input type="submit" value="Изменить"/>
+                </form>
+                </td>
+        </tr>
+        <tr th:if="${departmentList}">
+            <form th:method="PATCH" th:action="@{/appointment/{id}/assignDepartment(id=${appointment.getId()})}">
+                <td>
+                    Департамент
+                </td>
+                <td>
+                    <select th:object="${department}" th:field="*{id}" id="department">
+                        <option th:each="department : ${departmentList}" th:value="${department.getId()}" th:text="${department.getName()}"></option>
+                    </select>
+                </td>
+                <td>
+                    <input type="submit" value="Сохранить"/>
+                </td>
+            </form>
+        </tr>
+    </table>
+<br>
+<a href="/appointment"><input type="submit" value="Ok"/></a>
+<hr/>
+
+</body>
+</html>

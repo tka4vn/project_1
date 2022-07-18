@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Доступ</title>
+</head>
+<body>
+
+<style>
+    table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;}
+    th, td {
+        padding: 10px;}
+    table {
+        width:50%;
+        background-color: #f1f1c1;}
+</style>
+
+<table>
+    <tr>
+        <th><a href="/role">Роль</a></th>
+        <th><a href="/services">Сервис</a></th>
+        <th><a href="/users">Сотрудник</a></th>
+        <th colspan="3">Доступ</th>
+    </tr>
+    <tr th:each="ingress : ${ingress}">
+        <td align="center">
+            <span th:if="${ingress.getIdRolIng}" th:text="${ingress.getIdRolIng.getName()}"></span>
+            <span th:unless="${ingress.getIdRolIng}">-</span>
+        </td>
+        <td align="center">
+            <span th:if="${ingress.getIdSerIng}" th:text="${ingress.getIdSerIng.getName()}"></span>
+            <span th:unless="${ingress.getIdSerIng}">-</span>
+        </td>
+        <td align="center">
+            <span th:if="${ingress.getIdUseIng}" th:text="${ingress.getIdUseIng.getName()}"></span>
+            <span th:unless="${ingress.getIdUseIng}">-</span>
+        </td>
+        <td align="center" th:text="${ingress.getDateIng()}"></td>
+        <td align="center">
+            <form th:method="GET" th:action="@{/ingress/{id}/edit(id=${ingress.getId()})}">
+                <input type="submit" value="Редактировать"/>
+            </form>
+        </td>
+        <td align="center">
+            <form th:method="DELETE" th:action="@{/ingress/{id}(id=${ingress.getId()})}">
+                <input type="submit" value="Удалить"/>
+            </form>
+        </td>
+    </tr>
+</table>
+<br>
+<a href="/ingress/new"><input type="submit" value="Новое назначение"/></a>
+
+<br/>
+<hr/>
+
+<br/>
+<a href="/">На главную</a>
+
+</body>
+</html>

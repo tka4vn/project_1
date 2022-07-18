@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Show</title>
+</head>
+<body>
+<p th:text="${role.getName()}">VALUE</p>
+
+<form th:method="GET" th:action="@{/role/{id}/edit(id=${role.getId()})}">
+    <input type="submit" value="Редактировать"/>
+</form>
+
+<form th:method="DELETE" th:action="@{/role/{id}(id=${role.getId()})}">
+    <input type="submit" value="Удалить"/>
+</form>
+
+<hr/>
+
+<div th:if="${ingressList.isEmpty()}">
+    <p>За данной ролью нет сотрудников</p>
+    <hr/>
+</div>
+
+<div th:if="${!ingressList.isEmpty()}">
+    <hr/>
+    <b>Сотрудники:</b>
+    <br/>
+    <table th:each="ingress : ${ingressList}">
+        <tr>
+            <td>
+                <span th:text="${'Сервис: ' + ingress.idSerIng.getName() + ', Аккаунт: ' + ingress.idUseIng.getName()}">
+                </span>
+            </td>
+        </tr>
+    </table>
+    <hr/>
+</div>
+
+<hr/>
+<a href="/role">Назад</a>
+
+</body>
+</html>

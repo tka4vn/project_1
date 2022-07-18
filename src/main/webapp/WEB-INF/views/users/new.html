@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>New users</title>
+</head>
+<body>
+
+<style>
+    table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;}
+    th, td {
+        padding: 10px;}
+    table {
+        width:50%;
+        background-color: #f1f1c1;}
+</style>
+
+<table>
+    <!--APPOINTMENT-->
+    <tr>
+        <form th:method="POST" th:action="@{/users/}" th:object="${users}">
+            <td>Новый акаунт: </td>
+            <td>
+                <input type="text" th:field="*{name}" id="name"/>
+                <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Error</div>
+            </td>
+            <td><input type="submit" value="Создать"/></td>
+        </form>
+    </tr>
+</table>
+<br>
+<a href="/users"><input type="submit" value="Назад"/></a>
+<hr/>
+
+</body>
+</html>

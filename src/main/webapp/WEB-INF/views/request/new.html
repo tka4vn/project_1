@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Новый запрос</title>
+</head>
+<body>
+
+
+<style>
+    table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;}
+    th, td {
+        padding: 10px;}
+    table {
+        width:50%;
+        background-color: #f1f1c1;}
+</style>
+
+<table>
+    <!--REQUEST-->
+    <tr>
+        <form th:method="POST" th:action="@{/request/}" th:object="${request}">
+            <td>Дата запроса</td>
+            <td>
+                <input type="text" th:field="*{dateReq}" id="dateReq"/>
+                <div style="color:red" th:if="${#fields.hasErrors('dateReq')}" th:errors="*{dateReq}">Error</div>
+            </td>
+            <td><input type="submit" value="Создать"/></td>
+        </form>
+    </tr>
+</table>
+<br>
+<a href="/request"><input type="submit" value="Назад"/></a>
+<hr/>
+
+</body>
+</html>

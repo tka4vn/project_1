@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Редактировать сотрудника</title>
+</head>
+<body>
+
+<form th:method="PATCH" th:action="@{/employee/{id}(id=${employee.getId()})}" th:object="${employee}">
+    <label for="fullName">Введите ФОИ сотрудника: </label>
+    <input type="text" th:field="*{fullName}" id="fullName"/>
+    <div style="color:red" th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}">Error</div>
+    <br/>
+    <input type="submit" value="Обновить"/>
+</form>
+
+<a href="/employee">Назад</a>
+
+</body>
+</html>

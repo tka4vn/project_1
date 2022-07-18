@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Update users</title>
+</head>
+<body>
+
+<style>
+    table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;}
+    th, td {
+        padding: 10px;}
+    table {
+        width:50%;
+        background-color: #f1f1c1;}
+</style>
+
+    <table>
+<!--USERS-->
+        <tr>
+            <form th:method="PATCH" th:action="@{/users/{id}(id=${users.getId()})}" th:object="${users}">
+            <td>Аккаунт</td>
+            <td>
+                <input type="text" th:field="*{name}" id="name"/>
+                <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Error</div>
+                </td>
+            <td><input type="submit" value="Изменить"/></td>
+            </form>
+        </tr>
+<!--EMPLOYEE-->
+        <tr th:if="${idEmpUse}">
+            <td>Сотрудник</td>
+            <td th:text="${idEmpUse.getFullName()}"></td>
+            <td><form th:method="PATCH" th:action="@{/users/{id}/releaseEmployee(id=${users.getId()})}">
+                <input type="submit" value="Изменить"/>
+            </form>
+            </td>
+        </tr>
+        <tr th:if="${employeeList}">
+            <form th:method="PATCH" th:action="@{/users/{id}/assignEmployee(id=${users.getId()})}">
+                <td>
+                    Сотрудник
+                </td>
+                <td>
+                    <select th:object="${employee}" th:field="*{id}" id="employee">
+                        <option th:each="employee : ${employeeList}" th:value="${employee.getId()}" th:text="${employee.getFullName()}"></option>
+                    </select>
+                </td>
+                <td>
+                    <input type="submit" value="Сохранить"/>
+                </td>
+            </form>
+        </tr>
+    </table>
+<br>
+<a href="/users"><input type="submit" value="Ok"/></a>
+<hr/>
+
+</body>
+</html>

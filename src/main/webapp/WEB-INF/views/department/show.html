@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Show</title>
+</head>
+<body>
+<p th:text="${department.getName()}">VALUE</p>
+
+<form th:method="GET" th:action="@{/department/{id}/edit(id=${department.getId()})}">
+    <input type="submit" value="Редактировать"/>
+</form>
+
+<form th:method="DELETE" th:action="@{/department/{id}(id=${department.getId()})}">
+    <input type="submit" value="Удалить"/>
+</form>
+
+<hr/>
+
+<div th:if="${appointmentList.isEmpty()}">
+    <p>В данном департаменте нет сотрудников</p>
+    <hr/>
+</div>
+
+<div th:if="${!appointmentList.isEmpty()}">
+    <hr/>
+    <b>Сотрудники:</b>
+    <br/>
+    <table th:each="appointment : ${appointmentList}">
+        <tr>
+            <td>
+                <span th:text="${'Дата назначения :' + appointment.getDateApp() + ', Сотрудник: ' + appointment.idEmpApp.getFullName() + ', Должность: ' + appointment.idPosApp.getName()}">
+                </span>
+            </td>
+        </tr>
+    </table>
+    <hr/>
+</div>
+
+<hr/>
+<a href="/department">Назад</a>
+
+</body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Сервисы</title>
+</head>
+<body>
+
+<div th:each="services : ${servicesList}">
+    <a th:href="@{/services/{id}(id=${services.getId()})}"
+       th:text="${services.getName()}">user</a>
+</div>
+
+<br/>
+<hr/>
+
+<a href="/services/new">Добавить сервис</a>
+<br/>
+<a href="/">На главную</a>
+
+</body>
+</html>

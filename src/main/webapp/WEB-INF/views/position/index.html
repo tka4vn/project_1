@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Позиции</title>
+</head>
+<body>
+
+<div th:each="position : ${positionList}">
+    <a th:href="@{/position/{id}(id=${position.getId()})}"
+       th:text="${position.getName()}">user</a>
+</div>
+
+<br/>
+<hr/>
+
+<a href="/position/new">Добавить позицию</a>
+<br/>
+<a href="/">На главную</a>
+
+</body>
+</html>

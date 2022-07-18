@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Редактировать запрос</title>
+</head>
+<body>
+
+<style>
+    table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;}
+    th, td {
+        padding: 10px;}
+    table {
+        width:50%;
+        background-color: #f1f1c1;}
+</style>
+
+    <table>
+<!--REQUEST-->
+        <tr>
+            <form th:method="PATCH" th:action="@{/request/{id}(id=${request.getId()})}" th:object="${request}">
+            <td>Назначение</td>
+            <td>
+                <input type="text" th:field="*{dateReq}" id="dateReq"/>
+                <div style="color:red" th:if="${#fields.hasErrors('dateReq')}" th:errors="*{dateReq}">Error</div>
+                </td>
+            <td><input type="submit" value="Изменить"/></td>
+            </form>
+        </tr>
+<!--USERS-->
+        <tr th:if="${idUseReq}">
+            <td>Аккаунт</td>
+            <td th:text="${idUseReq.getName()}"></td>
+            <td><form th:method="PATCH" th:action="@{/request/{id}/releaseUsers(id=${request.getId()})}">
+                <input type="submit" value="Изменить"/>
+            </form>
+            </td>
+        </tr>
+        <tr th:if="${usersList}">
+            <form th:method="PATCH" th:action="@{/request/{id}/assignUsers(id=${request.getId()})}">
+                <td>
+                    Аккаунт
+                </td>
+                <td>
+                    <select th:object="${users}" th:field="*{id}" id="users">
+                        <option th:each="users : ${usersList}" th:value="${users.getId()}" th:text="${users.getName()}"></option>
+                    </select>
+                </td>
+                <td>
+                    <input type="submit" value="Сохранить"/>
+                </td>
+            </form>
+        </tr>
+<!--SERVICES-->
+        <tr th:if="${idSerReq}">
+            <td>Сервис</td>
+            <td th:text="${idSerReq.getName()}"></td>
+            <td><form th:method="PATCH" th:action="@{/request/{id}/releaseServices(id=${request.getId()})}">
+                <input type="submit" value="Изменить"/>
+            </form>
+            </td>
+        </tr>
+        <tr th:if="${servicesList}">
+            <form th:method="PATCH" th:action="@{/request/{id}/assignServices(id=${request.getId()})}">
+                <td>
+                    Сервис
+                </td>
+                <td>
+                    <select th:object="${services}" th:field="*{id}" id="services">
+                        <option th:each="services : ${servicesList}" th:value="${services.getId()}" th:text="${services.getName()}"></option>
+                    </select>
+                </td>
+                <td>
+                    <input type="submit" value="Сохранить"/>
+                </td>
+            </form>
+        </tr>
+<!--ROLE-->
+        <tr th:if="${idRolReq}">
+            <td>Роль</td>
+            <td th:text="${idRolReq.getName()}"></td>
+            <td><form th:method="PATCH" th:action="@{/request/{id}/releaseRole(id=${request.getId()})}">
+                    <input type="submit" value="Изменить"/>
+                </form>
+                </td>
+        </tr>
+        <tr th:if="${roleList}">
+            <form th:method="PATCH" th:action="@{/request/{id}/assignRole(id=${request.getId()})}">
+                <td>
+                    Роль
+                </td>
+                <td>
+                    <select th:object="${role}" th:field="*{id}" id="role">
+                        <option th:each="role : ${roleList}" th:value="${role.getId()}" th:text="${role.getName()}"></option>
+                    </select>
+                </td>
+                <td>
+                    <input type="submit" value="Сохранить"/>
+                </td>
+            </form>
+        </tr>
+<!--STATUS-->
+        <tr th:if="${idStaReq}">
+            <td>Статус</td>
+            <td th:text="${idStaReq.getName()}"></td>
+            <td><form th:method="PATCH" th:action="@{/request/{id}/releaseStatus(id=${request.getId()})}">
+                <input type="submit" value="Изменить"/>
+            </form>
+            </td>
+        </tr>
+        <tr th:if="${statusList}">
+            <form th:method="PATCH" th:action="@{/request/{id}/assignStatus(id=${request.getId()})}">
+                <td>
+                    Статус
+                </td>
+                <td>
+                    <select th:object="${status}" th:field="*{id}" id="status">
+                        <option th:each="status : ${statusList}" th:value="${status.getId()}" th:text="${status.getName()}"></option>
+                    </select>
+                </td>
+                <td>
+                    <input type="submit" value="Сохранить"/>
+                </td>
+            </form>
+        </tr>
+    </table>
+<br>
+<a href="/request"><input type="submit" value="Ok"/></a>
+<hr/>
+
+</body>
+</html>

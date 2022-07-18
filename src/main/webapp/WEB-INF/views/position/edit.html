@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Редактировать позицию</title>
+</head>
+<body>
+
+<form th:method="PATCH" th:action="@{/position/{id}(id=${position.getId()})}" th:object="${position}">
+    <label for="name">Введите название позиции: </label>
+    <input type="text" th:field="*{name}" id="name"/>
+    <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</div>
+    <br/>
+    <input type="submit" value="Обновить"/>
+</form>
+
+<a href="/position">Назад</a>
+
+</body>
+</html>

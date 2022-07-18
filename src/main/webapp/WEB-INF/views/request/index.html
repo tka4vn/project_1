@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Запросы</title>
+</head>
+<body>
+
+<style>
+    table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;}
+    th, td {
+        padding: 10px;}
+    table {
+        width:50%;
+        background-color: #f1f1c1;}
+</style>
+
+<table>
+    <tr>
+        <th><a href="/users">Аккаунт</a></th>
+        <th><a href="/services">Сервис</a></th>
+        <th><a href="/role">Роль</a></th>
+        <th><a href="/status">Статус</a></th>
+        <th colspan="3">Назначение</th>
+    </tr>
+    <tr th:each="request : ${request}">
+        <td align="center">
+            <span th:if="${request.getIdUseReq}" th:text="${request.getIdUseReq.getName()}"></span>
+            <span th:unless="${request.getIdUseReq}">-</span>
+        </td>
+        <td align="center">
+            <span th:if="${request.getIdSerReq}" th:text="${request.getIdSerReq.getName()}"></span>
+            <span th:unless="${request.getIdSerReq}">-</span>
+        </td>
+        <td align="center">
+            <span th:if="${request.getIdRolReq}" th:text="${request.getIdRolReq.getName()}"></span>
+            <span th:unless="${request.getIdRolReq}">-</span>
+        </td>
+        <td align="center">
+            <span th:if="${request.getIdStaReq}" th:text="${request.getIdStaReq.getName()}"></span>
+            <span th:unless="${request.getIdStaReq}">-</span>
+        </td>
+        <td align="center" th:text="${request.getDateReq()}"></td>
+        <td align="center">
+            <form th:method="GET" th:action="@{/request/{id}/edit(id=${request.getId()})}">
+                <input type="submit" value="Редактировать"/>
+            </form>
+        </td>
+        <td align="center">
+            <form th:method="DELETE" th:action="@{/request/{id}(id=${request.getId()})}">
+                <input type="submit" value="Удалить"/>
+            </form>
+        </td>
+    </tr>
+</table>
+<br>
+<a href="/request/new"><input type="submit" value="Новое назначение"/></a>
+
+<br/>
+<hr/>
+
+<br/>
+<a href="/">На главную</a>
+
+</body>
+</html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Новый сотрудник</title>
+</head>
+<body>
+
+<form th:method="POST" th:action="@{/employee}" th:object="${employee}">
+    <label for="fullName">Введите ФИО сотрудника: </label>
+    <input type="text" th:field="*{fullName}" id="fullName"/>
+    <div style="color:red" th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}">Error</div>
+    <br/>
+    <input type="submit" value="Создать!"/>
+</form>
+
+<a href="/employee">Назад</a>
+
+</body>
+</html>
